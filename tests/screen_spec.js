@@ -6,6 +6,7 @@ describe ("Test createRole", function(){
 
     beforeEach(function () {
         screenForm.getSite();
+        screenForm.reporter();
     });
 
     // 1.Создание скрина;
@@ -13,7 +14,6 @@ describe ("Test createRole", function(){
         screenForm.clickForElement();
         since('Ожидался переход на другой адрес').
             expect(browser.getCurrentUrl()).toEqual(mainPage);
-        screenForm.reporter();
     });
 
 });

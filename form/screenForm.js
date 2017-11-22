@@ -30,16 +30,15 @@ var screenForm = function() {
         jasmine.getEnv().addReporter(new function() {
             this.specDone = function(result) {
                 if (result.failedExpectations.length > 0) {
-                    browser.takeScreenshot();
+                    browser.takeScreenshot().then(function(png) {
+                        var stream = fs.createWriteStream(randomNumber + ".PNG");
+                        stream.write(new Buffer(png, 'base64'));
+                        stream.end();
+                    });
+                    console.log('Скрин упавшего теста: ' + randomNumber);
                 }
             };
         });
-        browser.takeScreenshot().then(function(png) {
-            var stream = fs.createWriteStream(randomNumber + ".PNG");
-            stream.write(new Buffer(png, 'base64'));
-            stream.end();
-        });
-        console.log('Скрин упавшего теста: ' + randomNumber);
     };
 
 };
